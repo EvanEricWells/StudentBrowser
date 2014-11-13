@@ -236,22 +236,16 @@ public class StudentGUI1 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, em);
             }
     }
-    public void showStudent() {
-        txtname.setText(s[currentstudent].getName());
-        txttest1.setText("" + s[currentstudent].getScore(1));
-        txttest2.setText("" + s[currentstudent].getScore(2));
-        txttest3.setText("" + s[currentstudent].getScore(3));
-        lblavg.setText("" + s[currentstudent].getAverage());
-        lblcount.setText("" + size);
-        lblindex.setText("" + currentstudent);        
-    }
+    
 
-    private void btnmodifyActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnmodActionPerformed(java.awt.event.ActionEvent evt) {
         studentPopup spop = new studentPopup(this, true);
         spop.setForm(s[currentstudent]);
         spop.setModal(true);
         spop.setLocationRelativeTo(this);
         spop.setVisible(true);
+        s[currentstudent]=spop.getStudent();
+        showStudent();
     }
     
     private void btnprevActionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,6 +260,15 @@ public class StudentGUI1 extends javax.swing.JFrame {
             currentstudent++;
             showStudent();
         }        
+    }
+    public void showStudent() {
+        txtname.setText(s[currentstudent].getName());
+        txttest1.setText("" + s[currentstudent].getScore(1));
+        txttest2.setText("" + s[currentstudent].getScore(2));
+        txttest3.setText("" + s[currentstudent].getScore(3));
+        lblavg.setText("" + s[currentstudent].getAverage());
+        lblcount.setText("" + size);
+        lblindex.setText("" + currentstudent);        
     }
 
     /**
