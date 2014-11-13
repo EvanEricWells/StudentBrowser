@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author evan5090
  */
 public class studentPopup extends javax.swing.JDialog {
-
+    student temp;
+   
+    
     /**
      * Creates new form studentPopup
      */
@@ -18,7 +15,32 @@ public class studentPopup extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-
+    
+    private void btnokActionPerformed(java.awt.event.ActionEvent evt){
+        int marks[] = new int[3];
+        String name = txtname.getText();
+        try{
+            marks[0]=Integer.parseInt(tblmarks.getValueAt(0,0).toString());
+            marks[1]=Integer.parseInt(tblmarks.getValueAt(0,1).toString());
+            marks[2]=Integer.parseInt(tblmarks.getValueAt(0,2).toString());
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Fill out all field\n(Press <enter> on each mark)");
+            return;
+        }
+        temp = new student(name, marks);
+        this.dispose();
+    }
+    
+    public void setForm(student s){
+        DefaultTableModel model = (DefaultTableModel)(tblmarks.getModel());
+        txtname.setText(s.getName());
+        model.setValueAt(s.getScore(1),0,0);
+        model.setValueAt(s.getScore(2),0,1);
+        model.setValueAt(s.getScore(3),0,2);
+    }
+    public student getStudent(){
+        return temp;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

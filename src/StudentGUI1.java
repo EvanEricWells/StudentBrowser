@@ -1,20 +1,24 @@
+
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author evan5090
  */
 public class StudentGUI1 extends javax.swing.JFrame {
+
     student s[];
     int size, currentstudent;
+
     /**
      * Creates new form StudentGUI
      */
     public StudentGUI1() {
         initComponents();
         s = new student[10];
-        size=0;
-        currentstudent=-1;
+        size = 0;
+        currentstudent = -1;
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -211,43 +215,59 @@ public class StudentGUI1 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void btnaddActionPerformed(java.awt.event.ActionEvent evt){
-        studentPopup spop = new studentPopup(this,true);
+    private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {
+        studentPopup spop = new studentPopup(this, true);
         spop.setModal(true);
         spop.setLocationRelativeTo(this);
         spop.setVisible(true);
         //this code wont run until popup is disposed
-        String name = spop.getName();
-        txtname.setText(name);
+        student temp = spop.getStudent();
+        
+            String em = temp.validateData();
+            
+            if(em==null){ 
+                s[size]=temp;
+                currentstudent=size;
+                size++;
+                showStudent();
+                    
+            }
+            else {
+                JOptionPane.showMessageDialog(this, em);
+            }
     }
-    public void showStudent(){
+    public void showStudent() {
         txtname.setText(s[currentstudent].getName());
-        txttest1.setText(""+s[currentstudent].getScore(1));
-        txttest2.setText(""+s[currentstudent].getScore(2));
-        txttest3.setText(""+s[currentstudent].getScore(3));
-        lblavg.setText(""+s[currentstudent].getAverage());
-        lblcount.setText(""+size);
-        lblindex.setText(""+currentstudent); 
+        txttest1.setText("" + s[currentstudent].getScore(1));
+        txttest2.setText("" + s[currentstudent].getScore(2));
+        txttest3.setText("" + s[currentstudent].getScore(3));
+        lblavg.setText("" + s[currentstudent].getAverage());
+        lblcount.setText("" + size);
+        lblindex.setText("" + currentstudent);        
+    }
+
+    private void btnmodifyActionPerformed(java.awt.event.ActionEvent evt) {
+        studentPopup spop = new studentPopup(this, true);
+        spop.setForm(s[currentstudent]);
+        spop.setModal(true);
+        spop.setLocationRelativeTo(this);
+        spop.setVisible(true);
     }
     
-    
-    
-    private void btnprevActionPerformed(java.awt.event.ActionEvent evt){
-        if(currentstudent>0)
-        {
+    private void btnprevActionPerformed(java.awt.event.ActionEvent evt) {
+        if (currentstudent > 0) {
             currentstudent--;
             showStudent();
         }
     }
     
-    private void btnfwdActionPerformed(java.awt.event.ActionEvent evt){
-        if(currentstudent<size-1 && currentstudent>-1)
-        {
+    private void btnfwdActionPerformed(java.awt.event.ActionEvent evt) {
+        if (currentstudent < size - 1 && currentstudent > -1) {
             currentstudent++;
             showStudent();
-        }    
+        }        
     }
-   
+
     /**
      * @param args the command line arguments
      */
@@ -265,13 +285,13 @@ public class StudentGUI1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudentGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentGUI1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudentGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentGUI1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudentGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentGUI1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudentGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StudentGUI1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
